@@ -20,7 +20,7 @@ from sudoku.sudok import Sudoku
 
 sudoku = Sudoku()
 
-sudoku.cargarSudoku("../data.json")
+sudoku.cargarSudoku("data.json")
 
 sudoku.resolver()
 

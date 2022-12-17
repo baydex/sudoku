@@ -1,0 +1,58 @@
+Quitar disponibles
+
+Herramientas
+
+1 Obtener numeros faltantes
+2 Poner un numero en la matriz real
+3 Eliminar numero de numeros faltantes
+4 Eliminar matriz de numero en los faltantes
+
+5 Eliminar numero de fila en grupos vecinos
+6 Eliminar numero de columna en grupos vecinos
+
+7 Contar opciones disponibles de un numero
+
+8 Las casillas disponibles solo existen en una unica fila?
+9 Las casillas disponibles solo existen en una unica columna?
+
+10 Existe solo 1 casilla disponible para X numero?
+11 En alguna de las casillas disponibles es el unico numero posible?
+12 El numero es el unico posible en su fila?
+13 El numero es el unico posible en su columna?
+
+verificar numero
+    Si H10
+    o H11
+    o H12
+    o H13
+        H2
+        H3
+        H4
+        H5
+        H6
+        retorna verdadero
+    retorna falso
+
+
+
+Paso 1 PrimeraRevision
+
+
+- Una vez -
+Iterar numeros no disponibles
+    H5
+    H6
+
+- repetir mientras haya un cambio entre la version anterior y la nueva -
+Iterar G grupos
+    interar D disponibles sobre G
+        Si !(verificar numero)
+            si H8
+                H5
+        Si !(verificar numero)
+            si H9
+                H6
+        
+            
+
+

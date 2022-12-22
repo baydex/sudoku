@@ -17,7 +17,6 @@ class ConfigurarGrupos:
                 matrizDeGrupo = []
                 for k in range(3):
                     matrizDeGrupo.append(self.grupos[str(j+k)][i:i+3])
-                print(matrizDeGrupo)
                 grupo = Grupo()
                 grupo.guardarMatriz(matrizDeGrupo)
                 grupos.append(grupo)
@@ -30,4 +29,4 @@ class ConfigurarGrupos:
     def limpiarNumerosDisponiblesDeGrupos(self) -> None:
         for grupo in self.grupos: 
             grupo:Grupo
-            grupo.limpiarNumerosDisponibles()
+            grupo.limpiarNumerosDisponiblesEnVecinos()

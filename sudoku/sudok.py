@@ -3,13 +3,18 @@ from sudoku.herramientas.fabricas import *
 
 class Sudoku(object):
     def __init__(self) -> None:
+        
         self.grupos = list()
 
+        self.CargarSudoku = cargarSudokuFact()
+        self.Resolver = resolverFact()
+        self.Show = showFact()
+
     def cargarSudoku(self, rutaArchivoSudoku : str) -> None:
-        self.grupos = cargarSudokuFact().cargar(rutaArchivoSudoku)
+        self.grupos = self.CargarSudoku.cargar(rutaArchivoSudoku)
 
     def resolver(self) -> None:
-        self.sudoku = resolverFact().resolver(self.grupos)
+        self.sudoku = self.Resolver.resolver(self.grupos)
 
     def show(self) -> None:
-        showFact().show(self.sudoku)
+        self.Show.show(self.sudoku)

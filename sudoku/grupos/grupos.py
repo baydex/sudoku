@@ -1,67 +1,51 @@
 
+from sudoku.grupos.herramientas.numerosFaltantes import NumerosFaltantes
+from sudoku.grupos.herramientas.espaciosDeNumerosDisponibles import EspaciosDeNumerosDisponibles
+from sudoku.grupos.herramientas.matriz import Matriz
+from sudoku.grupos.herramientas.vecinos import Vecinos
+from sudoku.grupos.herramientas.unicoNumeroPosible import UnicoNumeroPosible
+
 
 from copy import deepcopy
 
 
 class Grupo(object):
-    def guardarGruposVecinosEnFila(self,vecinos):
-        self.gruposVecinosEnFila = vecinos
+    def __init__(self) -> None:
+        self.matriz = Matriz()
+        self.vecinos = Vecinos()
+        self.numerosFaltantes = NumerosFaltantes()
+        self.espaciosDeNumerosDisponibles = EspaciosDeNumerosDisponibles()
+        self.unicoNumeroPosible = UnicoNumeroPosible()
+
+    def guardarGruposVecinosEnFila(self, vecinos : list):
+        self.vecinos.setFila(vecinos)
     
-    def guardarGruposVecinosEnColumna(self,vecinos):
-        self.gruposVecinosEnColumna = vecinos
+    def guardarGruposVecinosEnColumna(self, vecinos : list):
+        self.vecinos.setColumna(vecinos)
 
     def guardarMatriz(self, matriz):
-        self.matriz = matriz
 
-        self.crearNumerosFaltantes()
+        self.matriz.set(matriz)
+
+        self.numerosFaltantes.crear(self.matriz.get())
         
-        self.crearEspaciosDeNumerosDisponibles(self.numerosFaltantes, self.matriz)
+        self.espaciosDeNumerosDisponibles.crear(self.numerosFaltantes.get(), self.matriz.get())
 
         self.complete = False
-    
-    def crearNumerosFaltantes(self):
-        self.numerosFaltantes = [i for i in range(1,10)]
-        for fila in self.matriz:
-            for numero in fila:
-                if numero in self.numerosFaltantes:
-                    self.numerosFaltantes.remove(numero)
 
-    def crearEspaciosDeNumerosDisponibles(self, missingNumbers, matrix):
-        newMatrix = deepcopy(matrix)
-        for row in range(3):
-            for slot in range(3):
-                newMatrix[row][slot] = 1 if newMatrix[row][slot] == 0 else 0  
-        emptySlots = {}
-        for number in missingNumbers:
-            emptySlots[number] = deepcopy(newMatrix)
-        self.espaciosDeNumerosDisponibles = emptySlots
-    
-
-    def limpiarNumerosDisponibles(self):
-        for fila in range(0,3):
-            for columna in range(0,3):
-                self.numero = self.matriz[fila][columna]
-                if self.numero != 0:
-                    self.eliminarNumeroDeDisponiblesEnVecinos(fila,columna)
-
-    def eliminarNumeroDeDisponiblesEnVecinos(self,fila,columna):
-        self.eliminarNumeroEnFilaDeVecinos(self.numero, fila)
-        self.eliminarNumeroEnColumnaDeVecinos(self.numero, columna)
+    def limpiarNumerosDisponiblesEnVecinos(self):
+        self.vecinos.limpiarNumerosDisponibles(self.matriz)
 
     def buscarNumeros(self):
-        for numeroFaltante in self.numerosFaltantes:
+        for numeroFaltante in self.numerosFaltantes.get():
             self.numeroFaltante = numeroFaltante
             self.verificarNumero()
             if self.numeroVerificado != False:
-                print(self.matriz)
-                print(self.numeroFaltante)
-                print(self.numeroVerificado)
-                print("/-------")
                 self.ponerNumero()
 
     def verificarNumero(self):
         self.numeroVerificado = False
-        self.existeUnaCasillaParaNumero()
+        self.esUnicaOpcionPosibleEnGrupo()
         self.esUnicoNumeroPosibleEnGrupo()
         self.esUnicoNumeroPosibleEnFila()
         self.esUnicoNumeroPosibleEnColumna()
@@ -69,12 +53,11 @@ class Grupo(object):
 
     def H1(self):
         # 1 Obtener numeros faltantes
-
         pass
     
-    def ponerNumeroEnMatriz(self, number, row, column):
+    def ponerNumeroEnMatriz(self, number: int, row: int, column: int):
         # 2 Poner un numero en la matriz real
-        self.matriz[row][column] = number
+        self.matriz.setConPosicion(row, column, number)
 
     def eliminarDeNumerosFaltantes(self, number):
         # 3 Eliminar numero de numeros faltantes
@@ -83,22 +66,7 @@ class Grupo(object):
 
     def eliminarMatrizDeNumeroFaltante(self, number):
         # 4 Eliminar matriz de numero en los faltantes
-        del self.espaciosDeNumerosDisponibles[number]
-
-    def eliminarNumeroEnFilaDeVecinos(self, number, row):
-        # 5 Eliminar numero de fila en grupos vecinos
-        for vecino in self.gruposVecinosEnFila:
-            for column in range(3):
-                if number in vecino.espaciosDeNumerosDisponibles:
-                    vecino.espaciosDeNumerosDisponibles[number][row][column] = 0
-
-    def eliminarNumeroEnColumnaDeVecinos(self, number, column):
-        # 6 Eliminar numero de columna en grupos vecinos
-        for vecino in self.gruposVecinosEnColumna:
-            for row in range(3):
-                if number in vecino.espaciosDeNumerosDisponibles:
-                    vecino.espaciosDeNumerosDisponibles[number][row][column] = 0
-
+        self.espaciosDeNumerosDisponibles.remove(number)
 
     def H7(self):
         # 7 Contar opciones disponibles de un numero
@@ -115,9 +83,9 @@ class Grupo(object):
 
         pass
 
-    def existeUnaCasillaParaNumero(self):    
+    def esUnicaOpcionPosibleEnGrupo(self):    
         # 10 Existe solo 1 casilla disponible para X numero?
-        matrizDeNumero = self.espaciosDeNumerosDisponibles[self.numeroFaltante]
+        matrizDeNumero = self.espaciosDeNumerosDisponibles.get()[self.numeroFaltante]
 
         conteoDePosiblesCasillas = 0
         filaCasilla = columnaCasilla = None
@@ -135,8 +103,8 @@ class Grupo(object):
 
     def esUnicoNumeroPosibleEnGrupo(self):
         # 11 En alguna de las casillas disponibles es el unico numero posible?
-        matrizDeNumero = self.espaciosDeNumerosDisponibles[self.numeroFaltante]
-        matrizDeOtrosNumeros = deepcopy(self.espaciosDeNumerosDisponibles)
+        matrizDeNumero = self.espaciosDeNumerosDisponibles.get()[self.numeroFaltante]
+        matrizDeOtrosNumeros = deepcopy(self.espaciosDeNumerosDisponibles.get())
         del matrizDeOtrosNumeros[self.numeroFaltante]
         for fila in range(3):
             for columna in range(3):
@@ -151,45 +119,38 @@ class Grupo(object):
 
     def esUnicoNumeroPosibleEnFila(self):
         # 12 El numero es el unico posible en su fila?
-        matrizDeNumero = self.espaciosDeNumerosDisponibles[self.numeroFaltante]
+        matrizDeNumero = self.espaciosDeNumerosDisponibles.get()[self.numeroFaltante]
         for fila in range(3):
             suma = deepcopy(matrizDeNumero[fila])
-            for vecino in self.gruposVecinosEnFila:
-                if self.numeroFaltante in vecino.espaciosDeNumerosDisponibles:
-                   suma+= vecino.espaciosDeNumerosDisponibles[self.numeroFaltante][fila]
+            for vecino in self.vecinos.getFila():
+                if self.numeroFaltante in vecino.espaciosDeNumerosDisponibles.get():
+                   suma+= vecino.espaciosDeNumerosDisponibles.get()[self.numeroFaltante][fila]
             if sum(suma) == 1:
                 for columna in range(3):
                     if matrizDeNumero[fila][columna] == 1:
                         if self.numeroVerificado == False:
-                            return [fila, columna]
+                            self.numeroVerificado = [fila, columna]
 
 
     def esUnicoNumeroPosibleEnColumna(self):
         # 13 El numero es el unico posible en su columna?
-        matrizDeNumero = self.espaciosDeNumerosDisponibles[self.numeroFaltante]
+        matrizDeNumero = self.espaciosDeNumerosDisponibles.get()[self.numeroFaltante]
         for columna in range(3):
             suma =  matrizDeNumero[0][columna] + matrizDeNumero[1][columna] + matrizDeNumero[2][columna]
-            for vecino in self.gruposVecinosEnColumna:
-                if self.numeroFaltante in vecino.espaciosDeNumerosDisponibles:
-                    suma+= vecino.espaciosDeNumerosDisponibles[self.numeroFaltante][0][columna]
-                    suma+= vecino.espaciosDeNumerosDisponibles[self.numeroFaltante][1][columna]
-                    suma+= vecino.espaciosDeNumerosDisponibles[self.numeroFaltante][2][columna]
+            for vecino in self.vecinos.getColumna():
+                if self.numeroFaltante in vecino.espaciosDeNumerosDisponibles.get():
+                    suma+= vecino.espaciosDeNumerosDisponibles.get()[self.numeroFaltante][0][columna]
+                    suma+= vecino.espaciosDeNumerosDisponibles.get()[self.numeroFaltante][1][columna]
+                    suma+= vecino.espaciosDeNumerosDisponibles.get()[self.numeroFaltante][2][columna]
             if suma == 1:
                 for fila in range(3):
                     if matrizDeNumero[fila][columna] == 1:
                         if self.numeroVerificado == False:
-                            return [fila, columna]
+                            self.numeroVerificado = [fila, columna]
         
     def ponerNumero(self):
         self.ponerNumeroEnMatriz(self.numeroFaltante, self.numeroVerificado[0], self.numeroVerificado[1])
         self.eliminarDeNumerosFaltantes(self.numeroFaltante)
         self.eliminarMatrizDeNumeroFaltante(self.numeroFaltante)
-        self.eliminarNumeroEnFilaDeVecinos(self.numeroFaltante, self.numeroVerificado[0])
-        self.eliminarNumeroEnColumnaDeVecinos(self.numeroFaltante, self.numeroVerificado[1])
-
-    def verEspaciosDeNumerosDisponibles(self):
-        for numero in self.espaciosDeNumerosDisponibles:
-            print(numero)
-            for espacio in self.espaciosDeNumerosDisponibles[numero]:
-                print(espacio)
-            print("/////////")
+        self.vecinos.eliminarNumeroEnFila(self.numeroFaltante, self.numeroVerificado[0])
+        self.vecinos.eliminarNumeroEnColumna(self.numeroFaltante, self.numeroVerificado[1])

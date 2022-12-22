@@ -6,8 +6,6 @@ def showMatrix(matrix, etiqueta = ""):
         print(row)
     print("-------")
 
-
-
 def extractMatrices(groups):
     matrices = 0
     for group in groups:

@@ -15,7 +15,7 @@ class buscarYColocarNumeros:
         self.nuevosEspaciosDeNumerosDisponibles = list()
         for grupo in self.grupos:
             grupo:Grupo
-            self.nuevosEspaciosDeNumerosDisponibles.append(grupo.espaciosDeNumerosDisponibles)
+            self.nuevosEspaciosDeNumerosDisponibles.append(grupo.espaciosDeNumerosDisponibles.get())
 
     def repetirBusqueda(self) -> None:
         self.huboProgreso = True   

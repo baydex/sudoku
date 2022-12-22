@@ -1,5 +1,5 @@
 
-
+import os
 from sudoku.sudok import Sudoku
 
 # {
@@ -15,9 +15,9 @@ from sudoku.sudok import Sudoku
 #     "7": [0,0,3,  5,0,4,  0,0,2],
 #     "8": [2,4,0,  9,0,0,  0,0,0]
 
-# }
+# nojada }
 
-
+os.system("cls")
 sudoku = Sudoku()
 
 sudoku.cargarSudoku("data.json")

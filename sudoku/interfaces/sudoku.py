@@ -9,7 +9,6 @@ class SudokuInterfaz(metaclass=ABCMeta):
     def __init__(self) -> None:
         
         self.grupos: list
-
         self.CargarSudoku: cargarSudokuInterfaz
         self.Resolver: ResolverInterfaz
         self.Show: ShowInterfaz

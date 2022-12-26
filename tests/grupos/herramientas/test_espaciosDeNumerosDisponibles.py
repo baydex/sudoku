@@ -1,12 +1,13 @@
 import unittest
 
+import sys
+sys.path.append("../../../")
+
 from sudoku.grupos.herramientas.espaciosDeNumerosDisponibles import EspaciosDeNumerosDisponibles
 
 
 class Test_EspaciosDeNumerosDisponibles(unittest.TestCase):
-    def __init__(self) -> None:
-        self.espaciosDeNumerosDisponibles = EspaciosDeNumerosDisponibles()
-
+    
     def test_crear(self):
         pass
         # self.assertFalse(utils.is_prime(4))

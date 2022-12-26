@@ -1,7 +1,10 @@
+from sudoku.grupos.interfaces.unicoNumeroPosible import UnicoNumeroPosibleInterfaz
+from sudoku.grupos.interfaces.grupos import GrupoInterfaz
+
 from copy import deepcopy
 
+class UnicoNumeroPosible(UnicoNumeroPosibleInterfaz):
 
-class UnicoNumeroPosible:
     def __init__(self) -> None:
         self.numeroVerificado = False
         
@@ -22,8 +25,6 @@ class UnicoNumeroPosible:
         if conteoDePosiblesCasillas == 1:
             if self.numeroVerificado == False:
                 self.numeroVerificado = [filaCasilla, columnaCasilla]
-
-
 
     def enCasilla(self, espaciosDeNumerosDisponibles, numeroFaltante):
         # 11 En alguna de las casillas disponibles es el unico numero posible?
@@ -47,6 +48,7 @@ class UnicoNumeroPosible:
         for fila in range(3):
             suma = deepcopy(matrizDeNumero[fila])
             for vecino in vecinos.getFila():
+                vecino: GrupoInterfaz
                 if numeroFaltante in vecino.espaciosDeNumerosDisponibles.get():
                    suma+= vecino.espaciosDeNumerosDisponibles.get()[numeroFaltante][fila]
             if sum(suma) == 1:
@@ -62,6 +64,7 @@ class UnicoNumeroPosible:
         for columna in range(3):
             suma =  matrizDeNumero[0][columna] + matrizDeNumero[1][columna] + matrizDeNumero[2][columna]
             for vecino in vecinos.getColumna():
+                vecino: GrupoInterfaz
                 if numeroFaltante in vecino.espaciosDeNumerosDisponibles.get():
                     suma+= vecino.espaciosDeNumerosDisponibles.getConPosicion(numeroFaltante, 0, columna)
                     suma+= vecino.espaciosDeNumerosDisponibles.getConPosicion(numeroFaltante, 1, columna)

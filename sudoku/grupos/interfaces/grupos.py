@@ -1,7 +1,20 @@
 from abc import abstractmethod
 from abc import ABCMeta
 
+from sudoku.grupos.interfaces.matriz import MatrizInterfaz
+from sudoku.grupos.interfaces.vecinos import VecinosInterfaz
+from sudoku.grupos.interfaces.numerosFaltantes import NumerosFaltantesInterfaz
+from sudoku.grupos.interfaces.espaciosDeNumerosDisponibles import EspaciosDeNumerosDisponiblesInterfaz
+from sudoku.grupos.interfaces.unicoNumeroPosible import UnicoNumeroPosibleInterfaz
+
 class GrupoInterfaz(metaclass=ABCMeta):
+
+    def __init__(self) -> None:
+        self.matriz: MatrizInterfaz
+        self.vecinos: VecinosInterfaz
+        self.numerosFaltantes: NumerosFaltantesInterfaz
+        self.espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponiblesInterfaz
+        self.unicoNumeroPosible: UnicoNumeroPosibleInterfaz
 
     @abstractmethod
     def guardarGruposVecinosEnFila(self, vecinos: list):

@@ -4,7 +4,7 @@ from abc import ABCMeta
 class NumerosFaltantesInterfaz(metaclass=ABCMeta):
 
     def __init__(self) -> None:
-        self.numerosFaltantes = list()
+        self.numerosFaltantes: list
 
     @abstractmethod
     def crear(self, matriz: list) -> None:

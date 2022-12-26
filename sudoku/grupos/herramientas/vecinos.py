@@ -5,6 +5,9 @@ from sudoku.grupos.interfaces.grupos import GrupoInterfaz
 
 
 class Vecinos(VecinosInterfaz):
+    def __init__(self) -> None:
+        self.fila = list()
+        self.columna = list()
 
     def setFila(self, vecinos):
         self.fila = vecinos

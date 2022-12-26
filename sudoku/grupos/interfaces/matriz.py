@@ -4,7 +4,7 @@ from abc import ABCMeta
 class MatrizInterfaz(metaclass=ABCMeta):
 
     def __init__(self) -> None:
-        self.matriz = list()
+        self.matriz: list
 
     @abstractmethod
     def set(self, matriz: list) -> None:

@@ -4,9 +4,10 @@ from copy import deepcopy
 class UnicoNumeroPosible:
     def __init__(self) -> None:
         self.numeroVerificado = False
-    def enGrupo(self):    
+        
+    def enGrupo(self, espaciosDeNumerosDisponibles, numeroFaltante):    
         # 10 Existe solo 1 casilla disponible para X numero?
-        matrizDeNumero = self.espaciosDeNumerosDisponibles.get()[self.numeroFaltante]
+        matrizDeNumero = espaciosDeNumerosDisponibles.get()[numeroFaltante]
 
         conteoDePosiblesCasillas = 0
         filaCasilla = columnaCasilla = None
@@ -62,9 +63,9 @@ class UnicoNumeroPosible:
             suma =  matrizDeNumero[0][columna] + matrizDeNumero[1][columna] + matrizDeNumero[2][columna]
             for vecino in vecinos.getColumna():
                 if numeroFaltante in vecino.espaciosDeNumerosDisponibles.get():
-                    suma+= vecino.getConPosicion(numeroFaltante, 0, columna)
-                    suma+= vecino.getConPosicion(numeroFaltante, 1, columna)
-                    suma+= vecino.getConPosicion(numeroFaltante, 2, columna)
+                    suma+= vecino.espaciosDeNumerosDisponibles.getConPosicion(numeroFaltante, 0, columna)
+                    suma+= vecino.espaciosDeNumerosDisponibles.getConPosicion(numeroFaltante, 1, columna)
+                    suma+= vecino.espaciosDeNumerosDisponibles.getConPosicion(numeroFaltante, 2, columna)
             if suma == 1:
                 for fila in range(3):
                     if matrizDeNumero[fila][columna] == 1:

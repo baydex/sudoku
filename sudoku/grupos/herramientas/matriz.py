@@ -1,15 +1,23 @@
-class Matriz:
+from sudoku.grupos.interfaces.matriz import MatrizInterfaz
+
+from copy import deepcopy
+
+class Matriz(MatrizInterfaz):
+
     def __init__(self) -> None:
         self.matriz = list()
 
-    def get(self):
-        return self.matriz
+    def set(self, matriz: list) -> None:
+        self.matriz = deepcopy(matriz)
 
-    def set(self, value):
-        self.matriz = value
+    def get(self) -> list:
+        return self.matriz
     
-    def getConPosicion(self, x: int, y: int):
+    def setConPosicion(self, x: int, y: int, numero: int) -> None:
+        self.matriz[x][y] = numero
+
+    def getConPosicion(self, x: int, y: int) -> int:
         return self.matriz[x][y]
-    
-    def setConPosicion(self, x: int, y: int, value: int):
-        self.matriz[x][y] = value
+
+
+

@@ -4,12 +4,12 @@ from sudoku.grupos.herramientas.espaciosDeNumerosDisponibles import EspaciosDeNu
 from sudoku.grupos.herramientas.matriz import Matriz
 from sudoku.grupos.herramientas.vecinos import Vecinos
 from sudoku.grupos.herramientas.unicoNumeroPosible import UnicoNumeroPosible
-
+from sudoku.grupos.interfaces.grupos import GrupoInterfaz
 
 from copy import deepcopy
 
 
-class Grupo(object):
+class Grupo(GrupoInterfaz):
     def __init__(self) -> None:
         self.matriz = Matriz()
         self.vecinos = Vecinos()
@@ -45,10 +45,11 @@ class Grupo(object):
 
     def verificarNumero(self):
         self.numeroVerificado = False
-        self.esUnicaOpcionPosibleEnGrupo()
         self.esUnicoNumeroPosibleEnGrupo()
+        self.esUnicoNumeroPosibleEnCasilla()
         self.esUnicoNumeroPosibleEnFila()
         self.esUnicoNumeroPosibleEnColumna()
+        self.numeroVerificado = self.unicoNumeroPosible.numeroVerificado
         
 
     def H1(self):
@@ -83,70 +84,22 @@ class Grupo(object):
 
         pass
 
-    def esUnicaOpcionPosibleEnGrupo(self):    
+    def esUnicoNumeroPosibleEnGrupo(self):    
         # 10 Existe solo 1 casilla disponible para X numero?
-        matrizDeNumero = self.espaciosDeNumerosDisponibles.get()[self.numeroFaltante]
+        self.unicoNumeroPosible.enGrupo(self.espaciosDeNumerosDisponibles, self.numeroFaltante)
 
-        conteoDePosiblesCasillas = 0
-        filaCasilla = columnaCasilla = None
-
-        for fila in range(3):
-            for columna in range(3):
-                if matrizDeNumero[fila][columna] == 1:
-                    conteoDePosiblesCasillas += 1
-                    filaCasilla = fila
-                    columnaCasilla = columna
-
-        if conteoDePosiblesCasillas == 1:
-            if self.numeroVerificado == False:
-                self.numeroVerificado = [filaCasilla, columnaCasilla]
-
-    def esUnicoNumeroPosibleEnGrupo(self):
+    def esUnicoNumeroPosibleEnCasilla(self):
         # 11 En alguna de las casillas disponibles es el unico numero posible?
-        matrizDeNumero = self.espaciosDeNumerosDisponibles.get()[self.numeroFaltante]
-        matrizDeOtrosNumeros = deepcopy(self.espaciosDeNumerosDisponibles.get())
-        del matrizDeOtrosNumeros[self.numeroFaltante]
-        for fila in range(3):
-            for columna in range(3):
-                if matrizDeNumero[fila][columna] == 1:
-                    coincidencias = 0
-                    for otroNumero in matrizDeOtrosNumeros:
-                        if matrizDeOtrosNumeros[otroNumero][fila][columna] == 1:
-                            coincidencias+=1
-                    if coincidencias == 0:
-                        if self.numeroVerificado == False:
-                            self.numeroVerificado = [fila,columna]
+        self.unicoNumeroPosible.enCasilla(self.espaciosDeNumerosDisponibles, self.numeroFaltante)
 
     def esUnicoNumeroPosibleEnFila(self):
         # 12 El numero es el unico posible en su fila?
-        matrizDeNumero = self.espaciosDeNumerosDisponibles.get()[self.numeroFaltante]
-        for fila in range(3):
-            suma = deepcopy(matrizDeNumero[fila])
-            for vecino in self.vecinos.getFila():
-                if self.numeroFaltante in vecino.espaciosDeNumerosDisponibles.get():
-                   suma+= vecino.espaciosDeNumerosDisponibles.get()[self.numeroFaltante][fila]
-            if sum(suma) == 1:
-                for columna in range(3):
-                    if matrizDeNumero[fila][columna] == 1:
-                        if self.numeroVerificado == False:
-                            self.numeroVerificado = [fila, columna]
+        self.unicoNumeroPosible.enFila(self.espaciosDeNumerosDisponibles, self.numeroFaltante, self.vecinos)
 
 
     def esUnicoNumeroPosibleEnColumna(self):
         # 13 El numero es el unico posible en su columna?
-        matrizDeNumero = self.espaciosDeNumerosDisponibles.get()[self.numeroFaltante]
-        for columna in range(3):
-            suma =  matrizDeNumero[0][columna] + matrizDeNumero[1][columna] + matrizDeNumero[2][columna]
-            for vecino in self.vecinos.getColumna():
-                if self.numeroFaltante in vecino.espaciosDeNumerosDisponibles.get():
-                    suma+= vecino.espaciosDeNumerosDisponibles.get()[self.numeroFaltante][0][columna]
-                    suma+= vecino.espaciosDeNumerosDisponibles.get()[self.numeroFaltante][1][columna]
-                    suma+= vecino.espaciosDeNumerosDisponibles.get()[self.numeroFaltante][2][columna]
-            if suma == 1:
-                for fila in range(3):
-                    if matrizDeNumero[fila][columna] == 1:
-                        if self.numeroVerificado == False:
-                            self.numeroVerificado = [fila, columna]
+        self.unicoNumeroPosible.enColumna(self.espaciosDeNumerosDisponibles, self.numeroFaltante, self.vecinos)
         
     def ponerNumero(self):
         self.ponerNumeroEnMatriz(self.numeroFaltante, self.numeroVerificado[0], self.numeroVerificado[1])

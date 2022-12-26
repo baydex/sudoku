@@ -1,9 +1,11 @@
-class Show:
+from sudoku.interfaces.show import ShowInterfaz
+
+class Show(ShowInterfaz):
 
     def __init__(self) -> None:
         self.sudoku = list()
 
-    def show(self, sudoku):
+    def show(self, sudoku: list):
         self.sudoku = sudoku
         for i in range(0,9,3):
             for j in range(3):

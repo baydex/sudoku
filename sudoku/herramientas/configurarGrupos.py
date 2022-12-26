@@ -1,6 +1,10 @@
 from sudoku.herramientas.guardarVecinosDeGrupos import guardarVecinosDeGrupos
 from sudoku.grupos.grupos import Grupo
-class ConfigurarGrupos:    
+from sudoku.interfaces.configurarGrupos import ConfigurarGruposInterfaz
+
+
+class ConfigurarGrupos(ConfigurarGruposInterfaz): 
+       
     def __init__(self, grupos: list) -> None:
         self.grupos = grupos
 

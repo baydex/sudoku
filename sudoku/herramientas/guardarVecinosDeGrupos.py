@@ -1,6 +1,9 @@
-class guardarVecinosDeGrupos:
+from sudoku.interfaces.guardarVecinosDeGrupos import guardarVecinosDeGruposInterfaz
+
+class guardarVecinosDeGrupos(guardarVecinosDeGruposInterfaz):
     def __init__(self) -> None:
         pass
+
     def guardar(self, grupos : list) -> list:
             grupos[1-1].guardarGruposVecinosEnFila([grupos[2-1],grupos[3-1]])
             grupos[1-1].guardarGruposVecinosEnColumna([grupos[4-1],grupos[7-1]])

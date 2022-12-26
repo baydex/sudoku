@@ -1,7 +1,7 @@
-from sudoku.herramientas.utils import *
 from sudoku.herramientas.fabricas import *
+from sudoku.interfaces.sudoku import SudokuInterfaz
 
-class Sudoku(object):
+class Sudoku(SudokuInterfaz):
     def __init__(self) -> None:
         
         self.grupos = list()

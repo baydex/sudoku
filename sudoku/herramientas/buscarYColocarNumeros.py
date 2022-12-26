@@ -1,7 +1,8 @@
 from copy import deepcopy
 from sudoku.grupos.grupos import Grupo
+from sudoku.interfaces.buscarYColocarNumeros import buscarYColocarNumerosInterfaz
 
-class buscarYColocarNumeros:  
+class buscarYColocarNumeros(buscarYColocarNumerosInterfaz):  
     def __init__(self,grupos) -> None:
         self.grupos = grupos
 

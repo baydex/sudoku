@@ -4,7 +4,7 @@ from abc import ABCMeta
 class buscarYColocarNumerosInterfaz(metaclass=ABCMeta):
 
     def __init__(self,grupos) -> None:
-        self.grupos: list
+        self.__grupos: list
 
     @abstractmethod    
     def ejecutar(self) -> list:

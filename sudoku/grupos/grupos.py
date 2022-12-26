@@ -49,7 +49,7 @@ class Grupo(GrupoInterfaz):
         self.esUnicoNumeroPosibleEnCasilla()
         self.esUnicoNumeroPosibleEnFila()
         self.esUnicoNumeroPosibleEnColumna()
-        self.numeroVerificado = self.unicoNumeroPosible.numeroVerificado
+        self.numeroVerificado = self.unicoNumeroPosible.get()
         
 
     def H1(self):

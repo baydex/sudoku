@@ -5,19 +5,19 @@ from copy import deepcopy
 class Matriz(MatrizInterfaz):
 
     def __init__(self) -> None:
-        self.matriz = list()
+        self.__matriz = list()
 
     def set(self, matriz: list) -> None:
-        self.matriz = deepcopy(matriz)
+        self.__matriz = deepcopy(matriz)
 
     def get(self) -> list:
-        return self.matriz
+        return self.__matriz
     
     def setConPosicion(self, x: int, y: int, numero: int) -> None:
-        self.matriz[x][y] = numero
+        self.__matriz[x][y] = numero
 
     def getConPosicion(self, x: int, y: int) -> int:
-        return self.matriz[x][y]
+        return self.__matriz[x][y]
 
 
 

@@ -6,8 +6,8 @@ from sudoku.grupos.interfaces.matriz import MatrizInterfaz
 class VecinosInterfaz(metaclass=ABCMeta):
 
     def __init__(self) -> None:
-        self.fila: list
-        self.columna: list
+        self.__fila: list
+        self.__columna: list
 
     @abstractmethod
     def setFila(self, vecinos : list) -> None:

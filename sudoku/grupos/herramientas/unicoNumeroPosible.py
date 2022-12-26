@@ -6,7 +6,7 @@ from copy import deepcopy
 class UnicoNumeroPosible(UnicoNumeroPosibleInterfaz):
 
     def __init__(self) -> None:
-        self.numeroVerificado = False
+        self.__numeroVerificado = False
         
     def enGrupo(self, espaciosDeNumerosDisponibles, numeroFaltante):    
         # 10 Existe solo 1 casilla disponible para X numero?
@@ -23,8 +23,8 @@ class UnicoNumeroPosible(UnicoNumeroPosibleInterfaz):
                     columnaCasilla = columna
 
         if conteoDePosiblesCasillas == 1:
-            if self.numeroVerificado == False:
-                self.numeroVerificado = [filaCasilla, columnaCasilla]
+            if self.__numeroVerificado == False:
+                self.__numeroVerificado = [filaCasilla, columnaCasilla]
 
     def enCasilla(self, espaciosDeNumerosDisponibles, numeroFaltante):
         # 11 En alguna de las casillas disponibles es el unico numero posible?
@@ -39,8 +39,8 @@ class UnicoNumeroPosible(UnicoNumeroPosibleInterfaz):
                         if matrizDeOtrosNumeros[otroNumero][fila][columna] == 1:
                             coincidencias+=1
                     if coincidencias == 0:
-                        if self.numeroVerificado == False:
-                            self.numeroVerificado = [fila,columna]
+                        if self.__numeroVerificado == False:
+                            self.__numeroVerificado = [fila,columna]
 
     def enFila(self, espaciosDeNumerosDisponibles, numeroFaltante, vecinos):
         # 12 El numero es el unico posible en su fila?
@@ -54,8 +54,8 @@ class UnicoNumeroPosible(UnicoNumeroPosibleInterfaz):
             if sum(suma) == 1:
                 for columna in range(3):
                     if matrizDeNumero[fila][columna] == 1:
-                        if self.numeroVerificado == False:
-                            self.numeroVerificado = [fila, columna]
+                        if self.__numeroVerificado == False:
+                            self.__numeroVerificado = [fila, columna]
 
 
     def enColumna(self, espaciosDeNumerosDisponibles, numeroFaltante, vecinos):
@@ -72,5 +72,8 @@ class UnicoNumeroPosible(UnicoNumeroPosibleInterfaz):
             if suma == 1:
                 for fila in range(3):
                     if matrizDeNumero[fila][columna] == 1:
-                        if self.numeroVerificado == False:
-                            self.numeroVerificado = [fila, columna]
+                        if self.__numeroVerificado == False:
+                            self.__numeroVerificado = [fila, columna]
+
+    def get(self) -> bool:
+        return self.__numeroVerificado

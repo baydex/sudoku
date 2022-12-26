@@ -4,17 +4,17 @@ from sudoku.interfaces.resolver import ResolverInterfaz
 
 class Resolver(ResolverInterfaz):
     def __init__(self) -> None:
-        self.grupos = list()
+        self.__grupos = list()
 
     def resolver(self, grupos: list) -> list:
-        self.grupos = grupos
+        self.__grupos = grupos
         self.configurarGrupos()
         self.buscarYColocarNumeros()
-        self.sudoku = self.grupos
+        self.sudoku = self.__grupos
         return self.sudoku
 
     def configurarGrupos(self) -> None:
-        self.grupos = ConfigurarGrupos(self.grupos).configurar()
+        self.__grupos = ConfigurarGrupos(self.__grupos).configurar()
 
     def buscarYColocarNumeros(self) -> None:
-        self.grupos = buscarYColocarNumeros(self.grupos).ejecutar()
+        self.__grupos = buscarYColocarNumeros(self.__grupos).ejecutar()

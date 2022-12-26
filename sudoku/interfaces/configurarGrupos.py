@@ -3,14 +3,14 @@ from abc import ABCMeta
 
 class ConfigurarGruposInterfaz(metaclass=ABCMeta):
     def __init__(self, grupos: list) -> None:
-        self.grupos: list
+        self.__grupos: list
 
     @abstractmethod
     def configurar(self) -> list:
         pass
 
     @abstractmethod
-    def _separarSudokuEnGrupos(self) -> None:
+    def separarSudokuEnGrupos(self) -> None:
         pass
 
     @abstractmethod

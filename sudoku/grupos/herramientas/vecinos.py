@@ -6,20 +6,20 @@ from sudoku.grupos.interfaces.grupos import GrupoInterfaz
 
 class Vecinos(VecinosInterfaz):
     def __init__(self) -> None:
-        self.fila = list()
-        self.columna = list()
+        self.__fila = list()
+        self.__columna = list()
 
     def setFila(self, vecinos):
-        self.fila = vecinos
+        self.__fila = vecinos
     
     def getFila(self) -> list:
-        return self.fila
+        return self.__fila
 
     def setColumna(self, vecinos : list) -> None:
-        self.columna = vecinos
+        self.__columna = vecinos
     
     def getColumna(self) -> list:
-        return self.columna
+        return self.__columna
 
     def limpiarNumerosDisponibles(self, matriz : MatrizInterfaz) -> None:
         for fila in range(0,3):

@@ -5,7 +5,7 @@ from copy import deepcopy
 class EspaciosDeNumerosDisponibles(EspaciosDeNumerosDisponiblesInterfaz):
     
     def __init__(self) -> None:
-        self.espaciosDeNumerosDisponibles = dict()
+        self.__espaciosDeNumerosDisponibles = dict()
 
     def crear(self, numerosFaltantes: list, matrix: list) -> None:
         newMatrix = deepcopy(matrix)
@@ -15,23 +15,23 @@ class EspaciosDeNumerosDisponibles(EspaciosDeNumerosDisponiblesInterfaz):
         emptySlots = {}
         for number in numerosFaltantes:
             emptySlots[number] = deepcopy(newMatrix)
-        self.espaciosDeNumerosDisponibles = emptySlots
+        self.__espaciosDeNumerosDisponibles = emptySlots
         
     
     def get(self) -> dict:
-        return self.espaciosDeNumerosDisponibles
+        return self.__espaciosDeNumerosDisponibles
     
     def set(self, value: dict) -> None:
-        self.espaciosDeNumerosDisponibles = value
+        self.__espaciosDeNumerosDisponibles = value
     
     def remove(self, value: int) -> None:
-        del self.espaciosDeNumerosDisponibles[value]
+        del self.__espaciosDeNumerosDisponibles[value]
 
     def contieneNumero(self, numero: int) -> bool:
         return numero in self.get()
     
     def setConPosicion(self, numero: int, fila: int, columna: int, valor: int) -> None:
-        self.espaciosDeNumerosDisponibles[numero][fila][columna] = valor
+        self.__espaciosDeNumerosDisponibles[numero][fila][columna] = valor
     
     def getConPosicion(self, numero: int, fila: int, columna: int) -> int:
-        return self.espaciosDeNumerosDisponibles[numero][fila][columna]
+        return self.__espaciosDeNumerosDisponibles[numero][fila][columna]

@@ -3,7 +3,7 @@ from abc import ABCMeta
 
 class cargarSudokuInterfaz(metaclass=ABCMeta):
     def __init__(self) -> None:
-        self._grupos: list   
+        self.__grupos: list   
 
     @abstractmethod
     def cargar(self, rutaArchivoSudoku : str) -> list:

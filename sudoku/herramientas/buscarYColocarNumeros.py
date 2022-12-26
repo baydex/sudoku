@@ -4,17 +4,17 @@ from sudoku.interfaces.buscarYColocarNumeros import buscarYColocarNumerosInterfa
 
 class buscarYColocarNumeros(buscarYColocarNumerosInterfaz):  
     def __init__(self,grupos) -> None:
-        self.grupos = grupos
+        self.__grupos = grupos
 
     def ejecutar(self) -> list:
         self.antiguosEspaciosDeNumerosDisponibles = list()
         self.guardarNumerosDisponibles()
         self.repetirBusqueda()
-        return self.grupos
+        return self.__grupos
 
     def guardarNumerosDisponibles(self) -> None:
         self.nuevosEspaciosDeNumerosDisponibles = list()
-        for grupo in self.grupos:
+        for grupo in self.__grupos:
             grupo:Grupo
             self.nuevosEspaciosDeNumerosDisponibles.append(grupo.espaciosDeNumerosDisponibles.get())
 
@@ -26,7 +26,7 @@ class buscarYColocarNumeros(buscarYColocarNumerosInterfaz):
             self.verificarProgresoEnBusqueda()
 
     def progresarEnBuqueda(self) -> None:
-        for grupo in self.grupos:
+        for grupo in self.__grupos:
             grupo:Grupo
             grupo.buscarNumeros()
             # grupo.colocarNumeros()

@@ -4,17 +4,17 @@ from sudoku.interfaces.sudoku import SudokuInterfaz
 class Sudoku(SudokuInterfaz):
     def __init__(self) -> None:
         
-        self.grupos = list()
+        self.__grupos = list()
 
-        self.CargarSudoku = cargarSudokuFact()
-        self.Resolver = resolverFact()
-        self.Show = showFact()
+        self.__CargarSudoku = cargarSudokuFact()
+        self.__Resolver = resolverFact()
+        self.__Show = showFact()
 
     def cargarSudoku(self, rutaArchivoSudoku : str) -> None:
-        self.grupos = self.CargarSudoku.cargar(rutaArchivoSudoku)
+        self.__grupos = self.__CargarSudoku.cargar(rutaArchivoSudoku)
 
     def resolver(self) -> None:
-        self.sudoku = self.Resolver.resolver(self.grupos)
+        self.sudoku = self.__Resolver.resolver(self.__grupos)
 
     def show(self) -> None:
-        self.Show.show(self.sudoku)
+        self.__Show.show(self.sudoku)

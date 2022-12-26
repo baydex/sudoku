@@ -6,7 +6,7 @@ from sudoku.grupos.interfaces.vecinos import VecinosInterfaz
 
 class UnicoNumeroPosibleInterfaz(metaclass=ABCMeta):
     def __init__(self) -> None:
-        self.numeroVerificado: bool
+        self.__numeroVerificado: bool
     
     @abstractmethod        
     def enGrupo(self, espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponiblesInterfaz, numeroFaltante: int):    
@@ -22,4 +22,8 @@ class UnicoNumeroPosibleInterfaz(metaclass=ABCMeta):
     
     @abstractmethod
     def enColumna(self, espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponiblesInterfaz, numeroFaltante: int, vecinos: VecinosInterfaz):
+        pass
+
+    @abstractmethod
+    def get(self) -> bool:
         pass

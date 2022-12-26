@@ -3,7 +3,7 @@ from abc import ABCMeta
 
 class ResolverInterfaz(metaclass=ABCMeta):
     def __init__(self) -> None:
-        self.grupos: list
+        self.__grupos: list
     
     @abstractmethod
     def resolver(self, grupos: list) -> list:

@@ -8,10 +8,10 @@ from sudoku.interfaces.show import ShowInterfaz
 class SudokuInterfaz(metaclass=ABCMeta):
     def __init__(self) -> None:
         
-        self.grupos: list
-        self.CargarSudoku: cargarSudokuInterfaz
-        self.Resolver: ResolverInterfaz
-        self.Show: ShowInterfaz
+        self.__grupos: list
+        self.__CargarSudoku: cargarSudokuInterfaz
+        self.__Resolver: ResolverInterfaz
+        self.__Show: ShowInterfaz
     
     @abstractmethod
     def cargarSudoku(self, rutaArchivoSudoku : str) -> None:

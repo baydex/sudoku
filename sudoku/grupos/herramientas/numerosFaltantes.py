@@ -19,7 +19,10 @@ class NumerosFaltantes(NumerosFaltantesInterfaz):
         self.__numerosFaltantes = value
 
     def remove(self, value: int) -> None:
-        self.__numerosFaltantes.remove(value)
+        if value in self.__numerosFaltantes:
+            self.__numerosFaltantes.remove(value)
+        else:
+            raise NameError("Este numero no existe en lo numeros faltantes")
 
     
 

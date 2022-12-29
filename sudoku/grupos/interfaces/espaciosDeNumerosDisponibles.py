@@ -1,6 +1,8 @@
 from abc import abstractmethod
 from abc import ABCMeta
 
+from sudoku.grupos.interfaces.matriz import MatrizInterfaz
+
 class EspaciosDeNumerosDisponiblesInterfaz(metaclass=ABCMeta):
     
     def __init__(self) -> None:
@@ -32,4 +34,16 @@ class EspaciosDeNumerosDisponiblesInterfaz(metaclass=ABCMeta):
 
     @abstractmethod    
     def getConPosicion(self, numero: int, fila: int, columna: int) -> int:
+        pass
+
+    @abstractmethod
+    def limpiarFila(self, numero: int, fila: int) -> None:
+        pass
+
+    @abstractmethod
+    def limpiarColumna(self, numero: int, columna: int) -> None:
+        pass
+
+    @abstractmethod
+    def getMatrizDeNumero(self, numero: int) -> MatrizInterfaz:
         pass

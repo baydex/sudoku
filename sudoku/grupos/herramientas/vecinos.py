@@ -1,9 +1,6 @@
 from sudoku.grupos.interfaces.vecinos import VecinosInterfaz, MatrizInterfaz
 from sudoku.grupos.interfaces.grupos import GrupoInterfaz
 
-
-
-
 class Vecinos(VecinosInterfaz):
     def __init__(self) -> None:
         self.__fila = list()
@@ -28,7 +25,7 @@ class Vecinos(VecinosInterfaz):
                 if numero != 0:
                     self.eliminarNumeroDeDisponibles(numero,fila,columna)
     
-    def eliminarNumeroDeDisponibles(self,numero, fila: int, columna: int) -> None:
+    def eliminarNumeroDeDisponibles(self, numero, fila: int, columna: int) -> None:
         self.eliminarNumeroEnFila(numero, fila)
         self.eliminarNumeroEnColumna(numero, columna)
 
@@ -37,14 +34,12 @@ class Vecinos(VecinosInterfaz):
         # 5 Eliminar numero de fila en grupos vecinos
         for vecino in self.getFila():
             vecino: GrupoInterfaz
-            for column in range(3):
-                if vecino.espaciosDeNumerosDisponibles.contieneNumero(numero):
-                    vecino.espaciosDeNumerosDisponibles.setConPosicion(numero, row, column, 0)
+            if vecino.espaciosDeNumerosDisponibles.contieneNumero(numero):
+                vecino.espaciosDeNumerosDisponibles.limpiarFila(numero, row)
 
     def eliminarNumeroEnColumna(self, numero: int, column: int) -> None:
         # 6 Eliminar numero de columna en grupos vecinos
         for vecino in self.getColumna():
             vecino: GrupoInterfaz
-            for row in range(3):
-                if vecino.espaciosDeNumerosDisponibles.contieneNumero(numero):
-                    vecino.espaciosDeNumerosDisponibles.setConPosicion(numero, row, column, 0)
+            if vecino.espaciosDeNumerosDisponibles.contieneNumero(numero):
+                vecino.espaciosDeNumerosDisponibles.limpiarColumna(numero, column)

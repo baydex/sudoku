@@ -1,4 +1,5 @@
 from sudoku.interfaces.show import ShowInterfaz
+from sudoku.grupos.interfaces.grupos import GrupoInterfaz
 
 class Show(ShowInterfaz):
 

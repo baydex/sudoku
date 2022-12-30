@@ -12,6 +12,14 @@ class EspaciosDeNumerosDisponiblesInterfaz(metaclass=ABCMeta):
     def crear(self, numerosFaltantes: list, matrix: list) -> None:
         pass
 
+    @abstractmethod
+    def generarMatrizInicial(self, matriz: list) -> list:
+        pass
+
+    @abstractmethod
+    def guardarMatricesIniciales(self, numerosFaltantes: list, matrizInicial: list) -> None:
+        pass
+
     @abstractmethod            
     def get(self) -> dict:
         pass

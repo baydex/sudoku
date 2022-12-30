@@ -40,7 +40,7 @@ class Grupo(GrupoInterfaz):
         for numeroFaltante in self.numerosFaltantes.get():
             self.numeroFaltante = numeroFaltante
             self.verificarNumero()
-            if self.numeroVerificado != False:
+            if self.numeroVerificado:
                 self.ponerNumero()
 
     def verificarNumero(self):

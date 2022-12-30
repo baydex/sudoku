@@ -8,7 +8,7 @@ from sudoku.grupos.herramientas.matriz import Matriz
 
 class Test_NumerosFaltantes(unittest.TestCase):
     
-    def test_vecinos(self):
+    def test_numerosFaltantes(self):
         self.numerosFaltantes = NumerosFaltantes()
         self.crear()
         self.get()

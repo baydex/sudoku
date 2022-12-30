@@ -9,19 +9,31 @@ class EspaciosDeNumerosDisponibles(EspaciosDeNumerosDisponiblesInterfaz):
     def __init__(self) -> None:
         self.__espaciosDeNumerosDisponibles = dict()
 
-    def crear(self, numerosFaltantes: list, matrix: list) -> None:
-        newMatrix = deepcopy(matrix)
-        for row in range(3):
-            for slot in range(3):
-                newMatrix[row][slot] = 1 if newMatrix[row][slot] == 0 else 0  
-        emptySlots = {}
-        for number in numerosFaltantes:
-            matrizNueva = Matriz()
-            copia = deepcopy(newMatrix)
-            matrizNueva.set(copia)
-            emptySlots[number] = matrizNueva
-        self.__espaciosDeNumerosDisponibles = emptySlots
+    def crear(self, numerosFaltantes: list, matriz: list) -> None:
         
+        self.set(dict())
+
+        matrizInicial = self.generarMatrizInicial(matriz)
+        
+        self.guardarMatricesIniciales(numerosFaltantes, matrizInicial)
+        
+    def generarMatrizInicial(self, matriz: list) -> list:
+        matrizInicial = deepcopy(matriz)
+        for fila in range(3):
+            for columna in range(3):
+                if matrizInicial[fila][columna] == 0: 
+                    matrizInicial[fila][columna] = 1 
+                else:  
+                    matrizInicial[fila][columna] = 0 
+        return matrizInicial
+
+    def guardarMatricesIniciales(self, numerosFaltantes: list, matrizInicial: list) -> None:
+        for numero in numerosFaltantes:
+            matrizNueva = Matriz()
+            copia = deepcopy(matrizInicial)
+            matrizNueva.set(copia)
+            self.__espaciosDeNumerosDisponibles[numero] = matrizNueva
+
     def get(self) -> dict:
         return self.__espaciosDeNumerosDisponibles
     
@@ -35,19 +47,17 @@ class EspaciosDeNumerosDisponibles(EspaciosDeNumerosDisponiblesInterfaz):
         return numero in self.get()
     
     def setConPosicion(self, numero: int, fila: int, columna: int, valor: int) -> None:
-        self.__espaciosDeNumerosDisponibles[numero].setConPosicion(fila,columna,valor)
+        self.getMatrizDeNumero(numero).setConPosicion(fila,columna,valor)
     
     def getConPosicion(self, numero: int, fila: int, columna: int) -> int:
-        return self.__espaciosDeNumerosDisponibles[numero].getConPosicion(fila,columna)
+        return self.getMatrizDeNumero(numero).getConPosicion(fila,columna)
 
     def limpiarFila(self, numero: int, fila: int) -> None:
-        matriz = self.__espaciosDeNumerosDisponibles[numero]
-        matriz: MatrizInterfaz
+        matriz = self.getMatrizDeNumero(numero)
         matriz.setFila(fila, [0,0,0])
 
     def limpiarColumna(self, numero: int, columna: int) -> None:
-        matriz = self.__espaciosDeNumerosDisponibles[numero]
-        matriz: MatrizInterfaz
+        matriz = self.getMatrizDeNumero(numero)
         matriz.setColumna(columna, [0,0,0])
 
     def getMatrizDeNumero(self, numero: int) -> MatrizInterfaz:

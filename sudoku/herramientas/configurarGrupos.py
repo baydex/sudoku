@@ -31,6 +31,7 @@ class ConfigurarGrupos(ConfigurarGruposInterfaz):
         self.__grupos = guardarVecinosDeGrupos().guardar(self.__grupos)
     
     def limpiarNumerosDisponiblesDeGrupos(self) -> None:
+
         for grupo in self.__grupos: 
-            grupo:Grupo
+            grupo:Grupo            
             grupo.limpiarNumerosDisponiblesEnVecinos()

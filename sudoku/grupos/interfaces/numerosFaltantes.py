@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from abc import ABCMeta
 
-class NumerosFaltantesInterfaz(metaclass=ABCMeta):
+class NumerosFaltantes(metaclass=ABCMeta):
 
     def __init__(self) -> None:
         self.__numerosFaltantes: list

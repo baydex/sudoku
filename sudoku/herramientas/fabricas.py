@@ -1,13 +1,13 @@
-from sudoku.herramientas.cargarSudoku import cargarSudoku
-from sudoku.herramientas.resolver import Resolver
-from sudoku.herramientas.show import Show
+from sudoku.herramientas.cargarSudoku import cargarSudokuImp, cargarSudoku
+from sudoku.herramientas.resolver import ResolverImp, Resolver
+from sudoku.herramientas.show import ShowImp, Show
 
 def cargarSudokuFact() -> cargarSudoku:
-    return cargarSudoku()
+    return cargarSudokuImp()
 
 def resolverFact() -> Resolver:
-    return Resolver()
+    return ResolverImp()
 
 def showFact() -> Show:
-    return Show()
+    return ShowImp()
 

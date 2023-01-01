@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from abc import ABCMeta
 
-class ShowInterfaz(metaclass=ABCMeta):
+class Show(metaclass=ABCMeta):
 
     def __init__(self) -> None:
         pass

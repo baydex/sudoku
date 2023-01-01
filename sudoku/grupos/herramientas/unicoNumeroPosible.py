@@ -1,20 +1,20 @@
-from sudoku.grupos.interfaces.unicoNumeroPosible import UnicoNumeroPosibleInterfaz
-from sudoku.grupos.interfaces.grupos import GrupoInterfaz
-from sudoku.grupos.interfaces.espaciosDeNumerosDisponibles import EspaciosDeNumerosDisponiblesInterfaz
-from sudoku.grupos.interfaces.vecinos import VecinosInterfaz
+from sudoku.grupos.interfaces.espaciosDeNumerosDisponibles import EspaciosDeNumerosDisponibles
+from sudoku.grupos.interfaces.unicoNumeroPosible import UnicoNumeroPosible
+from sudoku.grupos.interfaces.vecinos import Vecinos
+from sudoku.grupos.interfaces.grupos import Grupo
 
 
 from copy import deepcopy
 
-class UnicoNumeroPosible(UnicoNumeroPosibleInterfaz):
+class UnicoNumeroPosibleImp(UnicoNumeroPosible):
 
     def __init__(self) -> None:
         self.__numeroVerificado = False
         self.__esColumna: bool
-        self.__vecinos: VecinosInterfaz
+        self.__vecinos: Vecinos
         self.__numeroFaltante: int
         
-    def enGrupo(self, espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponiblesInterfaz, numeroFaltante: int) -> None:  
+    def enGrupo(self, espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponibles, numeroFaltante: int) -> None:  
         # 10 Existe solo 1 casilla disponible para X numero?
         self.matrizDeNumero = espaciosDeNumerosDisponibles.getMatrizDeNumero(numeroFaltante)
 
@@ -42,7 +42,7 @@ class UnicoNumeroPosible(UnicoNumeroPosibleInterfaz):
                 verificacion = True
         return verificacion
 
-    def enCasilla(self, espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponiblesInterfaz, numeroFaltante: int) -> None:
+    def enCasilla(self, espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponibles, numeroFaltante: int) -> None:
         # 11 En alguna de las casillas disponibles es el unico numero posible?
         self.matrizDeNumero = espaciosDeNumerosDisponibles.getMatrizDeNumero(numeroFaltante)
         matrizDeOtrosNumeros = deepcopy(espaciosDeNumerosDisponibles)
@@ -52,14 +52,14 @@ class UnicoNumeroPosible(UnicoNumeroPosibleInterfaz):
                 if self.verificarCasilla(matrizDeOtrosNumeros, fila, columna):
                     self.__numeroVerificado = [fila,columna]
 
-    def noHuboCoincidenciasEnOtrosNumeros(self, matrizDeOtrosNumeros: EspaciosDeNumerosDisponiblesInterfaz, fila: int, columna: int) -> bool:
+    def noHuboCoincidenciasEnOtrosNumeros(self, matrizDeOtrosNumeros: EspaciosDeNumerosDisponibles, fila: int, columna: int) -> bool:
         verificacion = True
         for otroNumero in matrizDeOtrosNumeros.get():
             if matrizDeOtrosNumeros.getMatrizDeNumero(otroNumero).getConPosicion(fila, columna) == 1:
                 verificacion = False
         return verificacion
 
-    def verificarCasilla(self, matrizDeOtrosNumeros: EspaciosDeNumerosDisponiblesInterfaz, fila: int, columna: int) -> bool:
+    def verificarCasilla(self, matrizDeOtrosNumeros: EspaciosDeNumerosDisponibles, fila: int, columna: int) -> bool:
         verificacion = False
         if self.casillaEncontrada(fila, columna):
             if self.noHuboCoincidenciasEnOtrosNumeros(matrizDeOtrosNumeros, fila, columna):
@@ -68,7 +68,7 @@ class UnicoNumeroPosible(UnicoNumeroPosibleInterfaz):
         return verificacion
                     
 
-    def enFila(self, espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponiblesInterfaz, numeroFaltante: int, vecinos: VecinosInterfaz) -> None:
+    def enFila(self, espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponibles, numeroFaltante: int, vecinos: Vecinos) -> None:
         # 12 El numero es el unico posible en su fila?
         self.matrizDeNumero = espaciosDeNumerosDisponibles.getMatrizDeNumero(numeroFaltante)
         for fila in range(3):
@@ -87,7 +87,7 @@ class UnicoNumeroPosible(UnicoNumeroPosibleInterfaz):
         listaVecinos = self.__vecinos.getColumna() if self.__esColumna else self.__vecinos.getFila()
 
         for vecino in listaVecinos:
-            vecino: GrupoInterfaz
+            vecino: Grupo
             if vecino.espaciosDeNumerosDisponibles.contieneNumero(self.__numeroFaltante):
                 matrizDeNumeroDeVecino = vecino.espaciosDeNumerosDisponibles.getMatrizDeNumero(self.__numeroFaltante)
                 if self.__esColumna:
@@ -116,7 +116,7 @@ class UnicoNumeroPosible(UnicoNumeroPosibleInterfaz):
                             verificacion = [fila] if self.__esColumna else [columna]
         return verificacion
 
-    def enColumna(self, espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponiblesInterfaz, numeroFaltante: int, vecinos: VecinosInterfaz) -> None:
+    def enColumna(self, espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponibles, numeroFaltante: int, vecinos: Vecinos) -> None:
         # 13 El numero es el unico posible en su columna?
         self.matrizDeNumero = espaciosDeNumerosDisponibles.getMatrizDeNumero(numeroFaltante)
         for columna in range(3):

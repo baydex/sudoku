@@ -3,15 +3,15 @@ import unittest
 import sys
 sys.path.append("../../../")
 
-from sudoku.grupos.herramientas.espaciosDeNumerosDisponibles import EspaciosDeNumerosDisponibles
-from sudoku.grupos.herramientas.matriz import Matriz
-from sudoku.grupos.interfaces.matriz import MatrizInterfaz
+from sudoku.grupos.herramientas.espaciosDeNumerosDisponibles import EspaciosDeNumerosDisponiblesImp
+from sudoku.grupos.herramientas.matriz import MatrizImp
+from sudoku.grupos.interfaces.matriz import Matriz
 
 
 class Test_EspaciosDeNumerosDisponibles(unittest.TestCase):
     
     def test_espaciosDeNumerosDisponibles(self):
-        self.espaciosDeNumerosDisponibles = EspaciosDeNumerosDisponibles()
+        self.espaciosDeNumerosDisponibles = EspaciosDeNumerosDisponiblesImp()
         self.generarMatrizInicial()
         self.guardarMatricesIniciales()
         self.crear()
@@ -38,9 +38,9 @@ class Test_EspaciosDeNumerosDisponibles(unittest.TestCase):
         ]
         self.espaciosDeNumerosDisponibles.crear([1, 6, 7], matriz)
         matrices = self.espaciosDeNumerosDisponibles.get()
-        matrizDeNumero: MatrizInterfaz = matrices[1]
+        matrizDeNumero: Matriz = matrices[1]
         self.assertEqual(len(matrices), 3)
-        self.assertIsInstance(matrizDeNumero, MatrizInterfaz)
+        self.assertIsInstance(matrizDeNumero, Matriz)
         self.assertEqual(matrizDeNumero.get(), matrizEsperada)
 
     def generarMatrizInicial(self):
@@ -65,9 +65,9 @@ class Test_EspaciosDeNumerosDisponibles(unittest.TestCase):
         ]
         self.espaciosDeNumerosDisponibles.guardarMatricesIniciales([1, 6, 7], matriz)
         matrices = self.espaciosDeNumerosDisponibles.get()
-        matrizDeNumero: MatrizInterfaz = matrices[1]
+        matrizDeNumero: Matriz = matrices[1]
         self.assertEqual(len(matrices), 3)
-        self.assertIsInstance(matrizDeNumero, MatrizInterfaz)
+        self.assertIsInstance(matrizDeNumero, Matriz)
         self.assertEqual(matrizDeNumero.get(), matriz)
             
     def get(self):
@@ -80,7 +80,7 @@ class Test_EspaciosDeNumerosDisponibles(unittest.TestCase):
             [0,1,0],
             [1,0,0],
         ]
-        nuevoNumero = Matriz()
+        nuevoNumero = MatrizImp()
         nuevoNumero.set(nuevaMatrizDeNumero)
         nuevosEspacios[9] = nuevoNumero
         self.espaciosDeNumerosDisponibles.set(nuevosEspacios)

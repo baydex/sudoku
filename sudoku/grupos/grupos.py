@@ -1,21 +1,21 @@
 
-from sudoku.grupos.herramientas.numerosFaltantes import NumerosFaltantes
-from sudoku.grupos.herramientas.espaciosDeNumerosDisponibles import EspaciosDeNumerosDisponibles
-from sudoku.grupos.herramientas.matriz import Matriz
-from sudoku.grupos.herramientas.vecinos import Vecinos
-from sudoku.grupos.herramientas.unicoNumeroPosible import UnicoNumeroPosible
-from sudoku.grupos.interfaces.grupos import GrupoInterfaz
+from sudoku.grupos.herramientas.numerosFaltantes import NumerosFaltantesImp
+from sudoku.grupos.herramientas.espaciosDeNumerosDisponibles import EspaciosDeNumerosDisponiblesImp
+from sudoku.grupos.herramientas.unicoNumeroPosible import UnicoNumeroPosibleImp
+from sudoku.grupos.herramientas.vecinos import VecinosImp
+from sudoku.grupos.herramientas.matriz import MatrizImp
+from sudoku.grupos.interfaces.grupos import Grupo
 
 from copy import deepcopy
 
 
-class Grupo(GrupoInterfaz):
+class GrupoImp(Grupo):
     def __init__(self) -> None:
-        self.matriz = Matriz()
-        self.vecinos = Vecinos()
-        self.numerosFaltantes = NumerosFaltantes()
-        self.espaciosDeNumerosDisponibles = EspaciosDeNumerosDisponibles()
-        self.unicoNumeroPosible = UnicoNumeroPosible()
+        self.matriz = MatrizImp()
+        self.vecinos = VecinosImp()
+        self.numerosFaltantes = NumerosFaltantesImp()
+        self.espaciosDeNumerosDisponibles = EspaciosDeNumerosDisponiblesImp()
+        self.unicoNumeroPosible = UnicoNumeroPosibleImp()
 
     def guardarGruposVecinosEnFila(self, vecinos : list):
         self.vecinos.setFila(vecinos)

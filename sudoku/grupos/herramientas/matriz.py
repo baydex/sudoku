@@ -1,8 +1,8 @@
-from sudoku.grupos.interfaces.matriz import MatrizInterfaz
+from sudoku.grupos.interfaces.matriz import Matriz
 
 from copy import deepcopy
 
-class Matriz(MatrizInterfaz):
+class MatrizImp(Matriz):
 
     def __init__(self) -> None:
         self.__matriz = list()

@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from abc import ABCMeta
 
-class cargarSudokuInterfaz(metaclass=ABCMeta):
+class cargarSudoku(metaclass=ABCMeta):
     def __init__(self) -> None:
         self.__grupos: list   
 

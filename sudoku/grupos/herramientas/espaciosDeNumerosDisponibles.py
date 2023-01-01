@@ -1,17 +1,18 @@
-from sudoku.grupos.interfaces.espaciosDeNumerosDisponibles import EspaciosDeNumerosDisponiblesInterfaz
-from sudoku.grupos.herramientas.matriz import Matriz
-from sudoku.grupos.interfaces.matriz import MatrizInterfaz
+from sudoku.grupos.interfaces.espaciosDeNumerosDisponibles import EspaciosDeNumerosDisponibles
+from sudoku.grupos.interfaces.matriz import Matriz
+
+from sudoku.grupos.herramientas.matriz import MatrizImp
 
 from copy import deepcopy
 
-class EspaciosDeNumerosDisponibles(EspaciosDeNumerosDisponiblesInterfaz):
+class EspaciosDeNumerosDisponiblesImp(EspaciosDeNumerosDisponibles):
     
     def __init__(self) -> None:
         self.__espaciosDeNumerosDisponibles = dict()
 
     def crear(self, numerosFaltantes: list, matriz: list) -> None:
         
-        self.set(dict())
+        self.__espaciosDeNumerosDisponibles = dict()
 
         matrizInicial = self.generarMatrizInicial(matriz)
         
@@ -29,7 +30,7 @@ class EspaciosDeNumerosDisponibles(EspaciosDeNumerosDisponiblesInterfaz):
 
     def guardarMatricesIniciales(self, numerosFaltantes: list, matrizInicial: list) -> None:
         for numero in numerosFaltantes:
-            matrizNueva = Matriz()
+            matrizNueva = MatrizImp()
             copia = deepcopy(matrizInicial)
             matrizNueva.set(copia)
             self.__espaciosDeNumerosDisponibles[numero] = matrizNueva
@@ -60,7 +61,7 @@ class EspaciosDeNumerosDisponibles(EspaciosDeNumerosDisponiblesInterfaz):
         matriz = self.getMatrizDeNumero(numero)
         matriz.setColumna(columna, [0,0,0])
 
-    def getMatrizDeNumero(self, numero: int) -> MatrizInterfaz:
+    def getMatrizDeNumero(self, numero: int) -> Matriz:
         if(self.contieneNumero(numero)):
             return self.__espaciosDeNumerosDisponibles[numero]
         else:

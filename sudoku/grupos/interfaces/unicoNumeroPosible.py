@@ -1,15 +1,15 @@
 from abc import abstractmethod
 from abc import ABCMeta
 
-from sudoku.grupos.interfaces.espaciosDeNumerosDisponibles import EspaciosDeNumerosDisponiblesInterfaz
-from sudoku.grupos.interfaces.vecinos import VecinosInterfaz
+from sudoku.grupos.interfaces.espaciosDeNumerosDisponibles import EspaciosDeNumerosDisponibles
+from sudoku.grupos.interfaces.vecinos import Vecinos
 
-class UnicoNumeroPosibleInterfaz(metaclass=ABCMeta):
+class UnicoNumeroPosible(metaclass=ABCMeta):
     def __init__(self) -> None:
         self.__numeroVerificado: bool
     
     @abstractmethod        
-    def enGrupo(self, espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponiblesInterfaz, numeroFaltante: int) -> None:    
+    def enGrupo(self, espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponibles, numeroFaltante: int) -> None:    
         pass
 
     @abstractmethod
@@ -25,19 +25,19 @@ class UnicoNumeroPosibleInterfaz(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def enCasilla(self, espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponiblesInterfaz, numeroFaltante: int) -> None:
+    def enCasilla(self, espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponibles, numeroFaltante: int) -> None:
         pass
 
     @abstractmethod
-    def noHuboCoincidenciasEnOtrosNumeros(self, matrizDeOtrosNumeros: EspaciosDeNumerosDisponiblesInterfaz, fila: int, columna: int) -> bool:
+    def noHuboCoincidenciasEnOtrosNumeros(self, matrizDeOtrosNumeros: EspaciosDeNumerosDisponibles, fila: int, columna: int) -> bool:
         pass
 
     @abstractmethod
-    def verificarCasilla(self, matrizDeOtrosNumeros: EspaciosDeNumerosDisponiblesInterfaz, fila: int, columna: int) -> bool:
+    def verificarCasilla(self, matrizDeOtrosNumeros: EspaciosDeNumerosDisponibles, fila: int, columna: int) -> bool:
         pass
 
     @abstractmethod
-    def enFila(self, espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponiblesInterfaz, numeroFaltante: int, vecinos: VecinosInterfaz) -> None:
+    def enFila(self, espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponibles, numeroFaltante: int, vecinos: Vecinos) -> None:
         pass
 
     @abstractmethod
@@ -49,7 +49,7 @@ class UnicoNumeroPosibleInterfaz(metaclass=ABCMeta):
         pass
     
     @abstractmethod
-    def enColumna(self, espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponiblesInterfaz, numeroFaltante: int, vecinos: VecinosInterfaz) -> None:
+    def enColumna(self, espaciosDeNumerosDisponibles: EspaciosDeNumerosDisponibles, numeroFaltante: int, vecinos: Vecinos) -> None:
         pass
 
     @abstractmethod

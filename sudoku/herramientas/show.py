@@ -1,7 +1,6 @@
-from sudoku.interfaces.show import ShowInterfaz
-from sudoku.grupos.interfaces.grupos import GrupoInterfaz
+from sudoku.interfaces.show import Show
 
-class Show(ShowInterfaz):
+class ShowImp(Show):
 
     def __init__(self) -> None:
         self.sudoku = list()

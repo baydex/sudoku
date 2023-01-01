@@ -3,13 +3,13 @@ import unittest
 import sys
 sys.path.append("../../../")
 
-from sudoku.grupos.herramientas.matriz import Matriz
+from sudoku.grupos.herramientas.matriz import MatrizImp
 
 
 class Test_Matriz(unittest.TestCase):
     
     def test_matriz(self):
-        self.matriz = Matriz()
+        self.matriz = MatrizImp()
         self.matrizEjemplo = [
             [1,0,0],
             [0,2,5],

@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from abc import ABCMeta
 
-class MatrizInterfaz(metaclass=ABCMeta):
+class Matriz(metaclass=ABCMeta):
 
     def __init__(self) -> None:
         self.__matriz: list

@@ -1,8 +1,8 @@
-from sudoku.herramientas.configurarGrupos import ConfigurarGrupos
-from sudoku.herramientas.buscarYColocarNumeros import buscarYColocarNumeros
-from sudoku.interfaces.resolver import ResolverInterfaz
+from sudoku.herramientas.buscarYColocarNumeros import buscarYColocarNumerosImp
+from sudoku.herramientas.configurarGrupos import ConfigurarGruposImp
+from sudoku.interfaces.resolver import Resolver
 
-class Resolver(ResolverInterfaz):
+class ResolverImp(Resolver):
     def __init__(self) -> None:
         self.__grupos = list()
 
@@ -14,7 +14,7 @@ class Resolver(ResolverInterfaz):
         return self.sudoku
 
     def configurarGrupos(self) -> None:
-        self.__grupos = ConfigurarGrupos(self.__grupos).configurar()
+        self.__grupos = ConfigurarGruposImp(self.__grupos).configurar()
 
     def buscarYColocarNumeros(self) -> None:
-        self.__grupos = buscarYColocarNumeros(self.__grupos).ejecutar()
+        self.__grupos = buscarYColocarNumerosImp(self.__grupos).ejecutar()

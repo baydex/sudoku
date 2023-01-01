@@ -3,17 +3,20 @@ import unittest
 import sys
 sys.path.append("../../../")
 
-from sudoku.grupos.herramientas.unicoNumeroPosible import UnicoNumeroPosible
-from sudoku.grupos.herramientas.espaciosDeNumerosDisponibles import EspaciosDeNumerosDisponibles
-from sudoku.grupos.herramientas.numerosFaltantes import NumerosFaltantes
-from sudoku.grupos.herramientas.vecinos import Vecinos
-from sudoku.grupos.grupos import Grupo
+from sudoku.grupos.herramientas.unicoNumeroPosible import UnicoNumeroPosibleImp
+from sudoku.grupos.herramientas.espaciosDeNumerosDisponibles import EspaciosDeNumerosDisponiblesImp
+from sudoku.grupos.herramientas.numerosFaltantes import NumerosFaltantesImp
+from sudoku.grupos.herramientas.vecinos import VecinosImp
+from sudoku.grupos.grupos import GrupoImp
+
+from sudoku.grupos.interfaces.espaciosDeNumerosDisponibles import EspaciosDeNumerosDisponibles
+from sudoku.grupos.interfaces.vecinos import Vecinos
 
 class Test_UnicoNumeroPosible(unittest.TestCase):
 
     def test_unicoNumeroPosible(self):
         
-        self.unicoNumeroPosible = UnicoNumeroPosible()
+        self.unicoNumeroPosible = UnicoNumeroPosibleImp()
         
         self.enGrupo()
         self.enCasilla()
@@ -23,9 +26,9 @@ class Test_UnicoNumeroPosible(unittest.TestCase):
         self.restaurar()
 
     def enGrupo(self):
-        self.unicoNumeroPosible = UnicoNumeroPosible()
-        espaciosDeNumerosDisponibles = EspaciosDeNumerosDisponibles()
-        numerosFaltantes = NumerosFaltantes()
+        self.unicoNumeroPosible = UnicoNumeroPosibleImp()
+        espaciosDeNumerosDisponibles = EspaciosDeNumerosDisponiblesImp()
+        numerosFaltantes = NumerosFaltantesImp()
 
         matriz = [
             [0,0,1],
@@ -47,15 +50,15 @@ class Test_UnicoNumeroPosible(unittest.TestCase):
         self.unicoNumeroPosible.enGrupo(espaciosDeNumerosDisponibles, 2)
         self.assertIsInstance(self.unicoNumeroPosible.get(), list)
 
-        self.unicoNumeroPosible = UnicoNumeroPosible()
+        self.unicoNumeroPosible = UnicoNumeroPosibleImp()
         espaciosDeNumerosDisponibles.limpiarFila(2, 2)
         self.unicoNumeroPosible.enGrupo(espaciosDeNumerosDisponibles, 2)
         self.assertFalse(self.unicoNumeroPosible.get())
 
     def enCasilla(self):
-        self.unicoNumeroPosible = UnicoNumeroPosible()
-        espaciosDeNumerosDisponibles = EspaciosDeNumerosDisponibles()
-        numerosFaltantes = NumerosFaltantes()
+        self.unicoNumeroPosible = UnicoNumeroPosibleImp()
+        espaciosDeNumerosDisponibles = EspaciosDeNumerosDisponiblesImp()
+        numerosFaltantes = NumerosFaltantesImp()
 
         matriz = [
             [1,2,3],
@@ -75,7 +78,7 @@ class Test_UnicoNumeroPosible(unittest.TestCase):
         self.unicoNumeroPosible.enCasilla(espaciosDeNumerosDisponibles, 7)
         self.assertIsInstance(self.unicoNumeroPosible.get(), list)
 
-        self.unicoNumeroPosible = UnicoNumeroPosible()
+        self.unicoNumeroPosible = UnicoNumeroPosibleImp()
         espaciosDeNumerosDisponibles.limpiarFila(7, 2)
         self.unicoNumeroPosible.enCasilla(espaciosDeNumerosDisponibles, 7)
         self.assertFalse(self.unicoNumeroPosible.get())
@@ -202,11 +205,11 @@ class Test_UnicoNumeroPosible(unittest.TestCase):
     
     def configurarFilaColumna(self, matriz: list, matrizVecino1: list, matrizVecino2: list, esColumna: bool):
         self.unicoNumeroPosible.restaurar()
-        espaciosDeNumerosDisponibles = EspaciosDeNumerosDisponibles()
-        numerosFaltantes = NumerosFaltantes()
-        vecinos = Vecinos()
-        vecino1 = Grupo()
-        vecino2 = Grupo()
+        espaciosDeNumerosDisponibles = EspaciosDeNumerosDisponiblesImp()
+        numerosFaltantes = NumerosFaltantesImp()
+        vecinos = VecinosImp()
+        vecino1 = GrupoImp()
+        vecino2 = GrupoImp()
 
 
         numerosFaltantes.crear(matriz)

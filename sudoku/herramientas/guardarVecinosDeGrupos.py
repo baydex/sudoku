@@ -1,6 +1,6 @@
-from sudoku.interfaces.guardarVecinosDeGrupos import guardarVecinosDeGruposInterfaz
+from sudoku.interfaces.guardarVecinosDeGrupos import guardarVecinosDeGrupos
 
-class guardarVecinosDeGrupos(guardarVecinosDeGruposInterfaz):
+class guardarVecinosDeGruposImp(guardarVecinosDeGrupos):
     def __init__(self) -> None:
         pass
 

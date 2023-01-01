@@ -1,6 +1,6 @@
-from sudoku.grupos.interfaces.numerosFaltantes import NumerosFaltantesInterfaz
+from sudoku.grupos.interfaces.numerosFaltantes import NumerosFaltantes
 
-class NumerosFaltantes(NumerosFaltantesInterfaz):
+class NumerosFaltantesImp(NumerosFaltantes):
     
     def __init__(self) -> None:
         self.__numerosFaltantes = list()

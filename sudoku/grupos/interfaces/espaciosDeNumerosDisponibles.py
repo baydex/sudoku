@@ -1,9 +1,9 @@
 from abc import abstractmethod
 from abc import ABCMeta
 
-from sudoku.grupos.interfaces.matriz import MatrizInterfaz
+from sudoku.grupos.interfaces.matriz import Matriz
 
-class EspaciosDeNumerosDisponiblesInterfaz(metaclass=ABCMeta):
+class EspaciosDeNumerosDisponibles(metaclass=ABCMeta):
     
     def __init__(self) -> None:
         self.__espaciosDeNumerosDisponibles: dict
@@ -53,5 +53,5 @@ class EspaciosDeNumerosDisponiblesInterfaz(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def getMatrizDeNumero(self, numero: int) -> MatrizInterfaz:
+    def getMatrizDeNumero(self, numero: int) -> Matriz:
         pass

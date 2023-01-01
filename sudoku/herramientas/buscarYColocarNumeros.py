@@ -1,8 +1,9 @@
 from copy import deepcopy
-from sudoku.grupos.grupos import Grupo
-from sudoku.interfaces.buscarYColocarNumeros import buscarYColocarNumerosInterfaz
 
-class buscarYColocarNumeros(buscarYColocarNumerosInterfaz):  
+from sudoku.interfaces.buscarYColocarNumeros import buscarYColocarNumeros
+from sudoku.grupos.interfaces.grupos import Grupo
+
+class buscarYColocarNumerosImp(buscarYColocarNumeros):  
     def __init__(self,grupos) -> None:
         self.__grupos = grupos
 
@@ -15,7 +16,7 @@ class buscarYColocarNumeros(buscarYColocarNumerosInterfaz):
     def guardarNumerosDisponibles(self) -> None:
         self.nuevosEspaciosDeNumerosDisponibles = list()
         for grupo in self.__grupos:
-            grupo:Grupo
+            grupo: Grupo
             self.nuevosEspaciosDeNumerosDisponibles.append(grupo.espaciosDeNumerosDisponibles.get())
 
     def repetirBusqueda(self) -> None:
@@ -27,7 +28,7 @@ class buscarYColocarNumeros(buscarYColocarNumerosInterfaz):
 
     def progresarEnBuqueda(self) -> None:
         for grupo in self.__grupos:
-            grupo:Grupo
+            grupo: Grupo
             grupo.buscarNumeros()
             # grupo.colocarNumeros()
 

@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from abc import ABCMeta
 
-class ConfigurarGruposInterfaz(metaclass=ABCMeta):
+class ConfigurarGrupos(metaclass=ABCMeta):
     def __init__(self, grupos: list) -> None:
         self.__grupos: list
 

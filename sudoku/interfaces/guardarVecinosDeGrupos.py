@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from abc import ABCMeta
 
-class guardarVecinosDeGruposInterfaz(metaclass=ABCMeta):
+class guardarVecinosDeGrupos(metaclass=ABCMeta):
     def __init__(self) -> None:
         pass
 

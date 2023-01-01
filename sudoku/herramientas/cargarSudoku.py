@@ -1,8 +1,8 @@
 import json
-from sudoku.interfaces.cargarSudoku import cargarSudokuInterfaz
+from sudoku.interfaces.cargarSudoku import cargarSudoku
 
 
-class cargarSudoku(cargarSudokuInterfaz):
+class cargarSudokuImp(cargarSudoku):
     def __init__(self) -> None:
         self.__grupos = list()   
 

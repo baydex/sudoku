@@ -4,22 +4,18 @@ import unittest
 import sys
 sys.path.append("../../../")
 
-from sudoku.grupos.grupos import Grupo
+from sudoku.grupos.grupos import GrupoImp
 
-from sudoku.grupos.herramientas.vecinos import Vecinos
-from sudoku.grupos.herramientas.matriz import Matriz
+from sudoku.grupos.herramientas.vecinos import VecinosImp
+from sudoku.grupos.herramientas.matriz import MatrizImp
+from sudoku.grupos.interfaces.matriz import Matriz
+from sudoku.grupos.interfaces.grupos import Grupo
 
-from sudoku.herramientas.cargarSudoku import cargarSudoku
-from sudoku.herramientas.configurarGrupos import ConfigurarGrupos
-from sudoku.herramientas.guardarVecinosDeGrupos import guardarVecinosDeGrupos
-
-from sudoku.grupos.interfaces.grupos import GrupoInterfaz
-from sudoku.grupos.interfaces.matriz import MatrizInterfaz
 
 class Test_Vecinos(unittest.TestCase):
 
     def test_vecinos(self):
-        self.vecinos = Vecinos()
+        self.vecinos = VecinosImp()
 
         self.objetoInicializado()
         self.setFila()
@@ -42,11 +38,11 @@ class Test_Vecinos(unittest.TestCase):
         self.assertEqual(self.vecinos.getColumna(), list())
 
     def setFila(self):
-        grupo1 = Grupo()
+        grupo1 = GrupoImp()
         matriz1 = [[7, 1, 0], [8, 0, 6], [0, 0, 5]]
         grupo1.guardarMatriz(matriz1)
 
-        grupo2 = Grupo()
+        grupo2 = GrupoImp()
         matriz2 = [[0, 0, 0], [5, 0, 0], [0, 0, 7]]
         grupo2.guardarMatriz(matriz2)
 
@@ -56,17 +52,17 @@ class Test_Vecinos(unittest.TestCase):
 
     def getFila(self):
         fila = self.vecinos.getFila()
-        vecino: GrupoInterfaz = fila[0]
+        vecino: Grupo = fila[0]
         self.assertIsInstance(fila, list)
         self.assertIsInstance(vecino, Grupo)
         self.assertEqual(vecino.matriz.get(), [[7, 1, 0], [8, 0, 6], [0, 0, 5]])
         
     def setColumna(self):
-        grupo1 = Grupo()
+        grupo1 = GrupoImp()
         matriz1 = [[0, 1, 0], [3, 9, 0], [0, 0, 0]]
         grupo1.guardarMatriz(matriz1)
 
-        grupo2 = Grupo()
+        grupo2 = GrupoImp()
         matriz2 = [[0, 0, 1], [0, 0, 3], [2, 4, 0]]
         grupo2.guardarMatriz(matriz2)
 
@@ -81,7 +77,7 @@ class Test_Vecinos(unittest.TestCase):
         self.assertEqual(columna[0].matriz.get(), [[0, 1, 0], [3, 9, 0], [0, 0, 0]])
     
     def limpiarNumerosDisponibles(self):
-        matriz = Matriz()
+        matriz = MatrizImp()
 
         vecinos = self.vecinos.getFila() + self.vecinos.getColumna()
         
@@ -134,7 +130,7 @@ class Test_Vecinos(unittest.TestCase):
         else:
             vecinos = self.vecinos.getFila()
         for vecino in vecinos:
-            vecino: GrupoInterfaz
+            vecino: Grupo
             if vecino.espaciosDeNumerosDisponibles.contieneNumero(numero):
                 matrizVecino = vecino.espaciosDeNumerosDisponibles.getMatrizDeNumero(numero)
                 if esColumna:
@@ -146,9 +142,9 @@ class Test_Vecinos(unittest.TestCase):
     def recopilarMatrices(self, vecinos):
         recopilado = []
         for vecino in vecinos:
-            vecino: GrupoInterfaz
+            vecino: Grupo
             for claveDeMatriz in vecino.espaciosDeNumerosDisponibles.get():
-                espacio: MatrizInterfaz = vecino.espaciosDeNumerosDisponibles.getMatrizDeNumero(claveDeMatriz)
+                espacio: Matriz = vecino.espaciosDeNumerosDisponibles.getMatrizDeNumero(claveDeMatriz)
                 recopilado.append([claveDeMatriz, deepcopy(espacio)])
         return recopilado
 
@@ -156,8 +152,8 @@ class Test_Vecinos(unittest.TestCase):
         for posicion in range(len(respaldo)):
             matriz1 = respaldo[posicion][1]
             matriz2 = modificado[posicion][1]
-            matriz1: MatrizInterfaz
-            matriz2: MatrizInterfaz
+            matriz1: Matriz
+            matriz2: Matriz
             if respaldo[posicion][0] == numero:
                 self.assertNotEqual(matriz1.get(), matriz2.get())
             else:
@@ -193,7 +189,7 @@ class Test_Vecinos(unittest.TestCase):
         else:
             vecinos = self.vecinos.getFila()
         for vecino in vecinos:
-            vecino: GrupoInterfaz
+            vecino: Grupo
             if vecino.espaciosDeNumerosDisponibles.contieneNumero(numero):
                 matriz = vecino.espaciosDeNumerosDisponibles.getMatrizDeNumero(numero)
                 if esColumna: 

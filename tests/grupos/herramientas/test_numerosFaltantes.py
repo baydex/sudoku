@@ -3,20 +3,20 @@ import unittest
 import sys
 sys.path.append("../../../")
 
-from sudoku.grupos.herramientas.numerosFaltantes import NumerosFaltantes
-from sudoku.grupos.herramientas.matriz import Matriz
+from sudoku.grupos.herramientas.numerosFaltantes import NumerosFaltantesImp
+from sudoku.grupos.herramientas.matriz import MatrizImp
 
 class Test_NumerosFaltantes(unittest.TestCase):
     
     def test_numerosFaltantes(self):
-        self.numerosFaltantes = NumerosFaltantes()
+        self.numerosFaltantes = NumerosFaltantesImp()
         self.crear()
         self.get()
         self.set()
         self.remove()
 
     def crear(self):
-        matriz = Matriz()
+        matriz = MatrizImp()
         matriz = [
                     [0, 0, 0], 
                     [0, 0, 0], 

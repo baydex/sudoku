@@ -1,9 +1,9 @@
 from abc import abstractmethod
 from abc import ABCMeta
 
-from sudoku.grupos.interfaces.matriz import MatrizInterfaz
+from sudoku.grupos.interfaces.matriz import Matriz
 
-class VecinosInterfaz(metaclass=ABCMeta):
+class Vecinos(metaclass=ABCMeta):
 
     def __init__(self) -> None:
         self.__fila: list
@@ -26,7 +26,7 @@ class VecinosInterfaz(metaclass=ABCMeta):
         pass
     
     @abstractmethod
-    def limpiarNumerosDisponibles(self, matriz : MatrizInterfaz) -> None:
+    def limpiarNumerosDisponibles(self, matriz : Matriz) -> None:
         pass
     
     @abstractmethod    

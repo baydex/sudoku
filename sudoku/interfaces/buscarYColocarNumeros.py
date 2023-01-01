@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from abc import ABCMeta
 
-class buscarYColocarNumerosInterfaz(metaclass=ABCMeta):
+class buscarYColocarNumeros(metaclass=ABCMeta):
 
     def __init__(self,grupos) -> None:
         self.__grupos: list
